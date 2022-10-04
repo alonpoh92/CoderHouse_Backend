@@ -1,7 +1,7 @@
 const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
-const {Contenedor} = require('./classes/Contenedor');
+const {Contenedor} = require('./model/classes/Contenedor');
 
 const productos = new Contenedor('productos.txt');
 const mensajes = new Contenedor('mensajes.txt');
