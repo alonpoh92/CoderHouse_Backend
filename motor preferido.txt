@@ -1,3 +1,0 @@
-El motor de plantillas que más me gustó fue EJS, ya que una vez se instala no es necesario importarlo en el index.js, además,
-como permite utilizar código de JS directamente en las plantillas, los datos se puede pasar en crudo y manipularla según
-la necesidad directamente en las vistas y parciales.

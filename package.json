@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-handlebars": "node index_handlebars.js",
-    "start-pug": "node index_pug.js",
-    "start-ejs": "node index_ejs.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
