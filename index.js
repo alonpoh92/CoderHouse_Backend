@@ -1,10 +1,10 @@
 const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
-const {Contenedor} = require('./model/classes/Contenedor');
+const { Container } = require('./model/classes/Container');
 
-const productos = new Contenedor('productos.txt');
-const mensajes = new Contenedor('mensajes.txt');
+const products = new Container({client: 'mysql', connection: {host : '127.0.0.1', port : 3306, user : 'user', password : 'password', database : 'MariaDB'}}, 'products');
+const messages = new Container({client: 'sqlite3', connection: {filename: "./db/SQLite3"}}, 'messages');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -23,16 +23,16 @@ server.on('error', error => console.log(`Server error: ${error}`));
 const io = new IOServer(httpServer);
 
 io.on('connection', async (Socket) => {
-    const data = await productos.getAll();
+    const data = await products.getAll();
     Socket.emit('products-list', data);
-    const messages = await mensajes.getAll();
+    const messages = await messages.getAll();
     Socket.emit('messages-list', messages);
 
     Socket.on('add-product', async (data) => {
         const { title, price, thumbnail } = data;
         if(title && Number(price) && thumbnail){
             const newProduct = { title, price: Number(price), thumbnail };
-            const data = await productos.save(newProduct);
+            const data = await products.save(newProduct);
             if(!data.error){
                 Socket.emit('product-success', {data: newProduct, error: null});
                 Socket.broadcast.emit('new-product', {data: newProduct, error: null})
@@ -50,7 +50,7 @@ io.on('connection', async (Socket) => {
         const dformat = [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')+' '+[d.getHours(), d.getMinutes(), d.getSeconds()].join(':');
         if(email && message){
             const newMessage = { email, message, date: dformat };
-            const data = await mensajes.save(newMessage);
+            const data = await messages.save(newMessage);
             if(!data.error){
                 Socket.emit('message-success', {data: newMessage, error: null});
                 Socket.broadcast.emit('new-message', {data: newMessage, error: null})
