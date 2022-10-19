@@ -2,9 +2,10 @@ const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
 const { Container } = require('./model/classes/Container');
+const dbConfig = require('./db/config');
 
-const products = new Container({client: 'mysql', connection: {host : '127.0.0.1', port : 3306, user : 'user', password : 'password', database : 'MariaDB'}}, 'products');
-const messages = new Container({client: 'sqlite3', connection: {filename: "./db/SQLite3"}}, 'messages');
+const products = new Container({client: 'mysql', connection: dbConfig.mariaDB}, 'products');
+const messages = new Container({client: 'sqlite3', connection: dbConfig.sqlite}, 'messages');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -25,8 +26,8 @@ const io = new IOServer(httpServer);
 io.on('connection', async (Socket) => {
     const data = await products.getAll();
     Socket.emit('products-list', data);
-    const messages = await messages.getAll();
-    Socket.emit('messages-list', messages);
+    const allMessages = await messages.getAll();
+    Socket.emit('messages-list', allMessages);
 
     Socket.on('add-product', async (data) => {
         const { title, price, thumbnail } = data;
