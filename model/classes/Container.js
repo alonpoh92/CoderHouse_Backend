@@ -4,29 +4,75 @@ class Container{
         this.table = table;
     }
 
-    read(){
-        this.connection.select('*')
-            .from(this.table)
+    async save(object){
+        const res = {};
+        try{
+            const ret = await this.connection(this.table).insert(object);
+            res['data'] = ret[0];
+            res['error'] = null;
+        }catch{
+            res['data'] = null;
+            res['error'] = error;
+        }
+        console.log("save", res);
+        return res;
     }
 
-    save(object){
-
+    async getById(id){
+        const res = {};
+        try{
+            const rows = await this.connection.from(this.table).select("*").where('id', '=', id);
+            if(rows.length > 0){
+                res['data'] = rows[0];
+                res['error'] = null;
+            }else{
+                res['data'] = null;
+                res['error'] = `Id ${id} has not been found`;
+            }
+        }catch{
+            res['data'] = null;
+            res['error'] = error;
+        }
+        console.log("getById", res);
+        return res;
     }
 
-    getById(id){
-
+    async getAll(){
+        const res = {};
+        try{
+            const rows = await this.connection.from(this.table).select("*");
+            res['data'] = rows;
+            res['error'] = null;
+        }catch{
+            res['data'] = null;
+            res['error'] = error;
+        }
+        console.log("getAll", res);
+        return res;
     }
 
-    getAll(){
-
+    async deleteById(id){
+        const res = {};
+        try{
+            await this.connection.from(this.table).where('id', id).del();
+            res['error'] = null;
+        }catch{
+            res['error'] = error;
+        }
+        console.log("deleteById", res)
+        return res;
     }
 
-    deleteById(id){
-
-    }
-
-    deleteAll(){
-
+    async deleteAll(){
+        const res = {};
+        try{
+            await this.connection.from(this.table).del();
+            res['error'] = null;
+        }catch{
+            res['error'] = error;
+        }
+        console.log("deleteAll", res)
+        return res;
     }
 }
 

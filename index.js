@@ -4,8 +4,8 @@ const { Server: IOServer } = require('socket.io');
 const { Container } = require('./model/classes/Container');
 const dbConfig = require('./db/config');
 
-const products = new Container({client: 'mysql', connection: dbConfig.mariaDB}, 'products');
-const messages = new Container({client: 'sqlite3', connection: dbConfig.sqlite}, 'messages');
+const products = new Container(dbConfig.mariaDB, 'products');
+const messages = new Container(dbConfig.sqlite, 'messages');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -52,6 +52,7 @@ io.on('connection', async (Socket) => {
         if(email && message){
             const newMessage = { email, message, date: dformat };
             const data = await messages.save(newMessage);
+            console.log("aqui", data);
             if(!data.error){
                 Socket.emit('message-success', {data: newMessage, error: null});
                 Socket.broadcast.emit('new-message', {data: newMessage, error: null})
