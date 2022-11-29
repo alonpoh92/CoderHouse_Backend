@@ -4,6 +4,7 @@ const { Server: IOServer } = require('socket.io');
 const { Container } = require('./model/classes/Container');
 const dbConfig = require('./db/config');
 
+
 const products = new Container(dbConfig.mariaDB, 'products');
 const messages = new Container(dbConfig.sqlite, 'messages');
 
