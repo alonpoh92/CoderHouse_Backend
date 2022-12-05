@@ -2,6 +2,7 @@ const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
 const { Container } = require('./model/classes/Container');
+const apiRoutes = require('./routers/app.routers'); 
 const dbConfig = require('./db/config');
 
 const products = new Container(dbConfig.mariaDB, 'products');
@@ -14,6 +15,7 @@ const httpServer = new HttpServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use('/api', apiRoutes);
 
 const server =  httpServer.listen(PORT, () => {
     console.log(`Server listening on port ${server.address().port}`)

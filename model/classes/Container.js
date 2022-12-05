@@ -10,7 +10,7 @@ class Container{
             const ret = await this.connection(this.table).insert(object);
             res['data'] = ret[0];
             res['error'] = null;
-        }catch{
+        }catch(error){
             res['data'] = null;
             res['error'] = error;
         }
@@ -29,7 +29,7 @@ class Container{
                 res['data'] = null;
                 res['error'] = `Id ${id} has not been found`;
             }
-        }catch{
+        }catch(error){
             res['data'] = null;
             res['error'] = error;
         }
@@ -43,7 +43,7 @@ class Container{
             const rows = await this.connection.from(this.table).select("*");
             res['data'] = rows;
             res['error'] = null;
-        }catch{
+        }catch(error){
             res['data'] = null;
             res['error'] = error;
         }
@@ -56,7 +56,7 @@ class Container{
         try{
             await this.connection.from(this.table).where('id', id).del();
             res['error'] = null;
-        }catch{
+        }catch(error){
             res['error'] = error;
         }
         console.log("deleteById", res)
@@ -68,7 +68,7 @@ class Container{
         try{
             await this.connection.from(this.table).del();
             res['error'] = null;
-        }catch{
+        }catch(error){
             res['error'] = error;
         }
         console.log("deleteAll", res)
