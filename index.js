@@ -1,11 +1,6 @@
 const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
-const { Container } = require('./model/classes/Container');
-const dbConfig = require('./db/config');
-
-const products = new Container(dbConfig.mariaDB, 'products');
-const messages = new Container(dbConfig.sqlite, 'messages');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
