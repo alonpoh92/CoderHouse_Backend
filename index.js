@@ -1,6 +1,7 @@
 const express = require('express');
 const { Server: HttpServer } = require('http');
-const { ProductChatController: socket } = require('./controllers/productChat.controller')
+const { ChatController: chat } = require('./controllers/chat.controller')
+const { ProductController: product } = require('./controllers/product.controller')
 const envConfig = require('./config');
 const apiRoutes = require('./routes/app.routes');
 
@@ -15,7 +16,9 @@ app.use('/api', apiRoutes);
 
 const server =  httpServer.listen(PORT, () => {
     console.log(`Server listening on port ${server.address().port}`)
-    socket.start(httpServer);
+    chat.start(httpServer);
+    product.start(httpServer);
+    console.log("");
 });
 
 server.on('error', error => console.log(`Server error: ${error}`));
