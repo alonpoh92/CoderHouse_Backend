@@ -2,6 +2,7 @@ const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
 const envConfig = require('./config');
+const appRoutes = require('./routes/app.routes');
 
 const PORT = envConfig.SERVER_PORT || 8080;
 const app = express();
