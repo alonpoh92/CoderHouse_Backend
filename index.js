@@ -16,7 +16,6 @@ app.use('/api', apiRoutes);
 const server =  httpServer.listen(PORT, () => {
     console.log(`Server listening on port ${server.address().port}`)
     socket.start(httpServer);
-    socket.start(httpServer);
 });
 
 server.on('error', error => console.log(`Server error: ${error}`));

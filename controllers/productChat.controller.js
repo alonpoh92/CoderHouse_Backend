@@ -7,6 +7,7 @@ class ProductChatController{
         const product = new ProductSocketDao(httpServer);
         chat.start();
         product.start();
+        console.log("");
     }
 }
 

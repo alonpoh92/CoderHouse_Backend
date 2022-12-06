@@ -1,14 +1,16 @@
 const { SocketContainer } = require('../../containers/socket.container');
+const { FirebaseContainer } = require('../../containers/firebase.container');
 
 class ChatSocketDao extends SocketContainer{
     constructor(httpServer){
         super(httpServer);
+        this.messages = new FirebaseContainer('messages');
     }
 
     start(){
         this.io.on('connection', async (Socket) => {
-            console.log("Connected chat");
-            const allMessages = await messages.getAll();
+            console.log(`Connected chat ${Socket.id}`);
+            const allMessages = await this.messages.getAll();
             Socket.emit('messages-list', allMessages);
                 
             Socket.on('add-message', async (data) => {
@@ -17,7 +19,7 @@ class ChatSocketDao extends SocketContainer{
                 const dformat = [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')+' '+[d.getHours(), d.getMinutes(), d.getSeconds()].join(':');
                 if(email && message){
                     const newMessage = { email, message, date: dformat };
-                    const data = await messages.save(newMessage);
+                    const data = await this.messages.save(newMessage);
                     console.log("aqui", data);
                     if(!data.error){
                         Socket.emit('message-success', {data: newMessage, error: null});
@@ -30,6 +32,9 @@ class ChatSocketDao extends SocketContainer{
                 }
             });
         });
+
+        console.log('Started Chat Socket')
+
     }
 }
 
