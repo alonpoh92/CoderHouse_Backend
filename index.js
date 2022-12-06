@@ -1,8 +1,9 @@
 const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
+const envConfig = require('./config');
 
-const PORT = process.env.PORT || 8080;
+const PORT = envConfig.SERVER_PORT || 8080;
 const app = express();
 const httpServer = new HttpServer(app);
 
