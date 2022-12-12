@@ -17,11 +17,11 @@ const httpServer = new HttpServer(app);
 app.engine('hbs', engine({
     extname: 'hbs',
     layoutDefault: 'main',
-    layoutsDir: path.resolve(__dirname, './views/layouts'),
-    partialsDir: path.resolve(__dirname, './views/partials')
+    layoutsDir: path.resolve(__dirname, './public/views/layouts'),
+    partialsDir: path.resolve(__dirname, './public/views/partials')
 }))
 
-app.set('views', './views');
+app.set('views', './public/views');
 app.set('view engine', 'hbs');
 
 app.use(express.json());

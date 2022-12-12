@@ -70,25 +70,27 @@
                             <div id="signIn" class="col-12 col-md-6 h-75 h-md-100 p-3 margin-top d-flex justify-content-center align-items-center overflow-hidden">
                                 <div class="w-100 overflow-hidden">
                                     <h2 class="text-center">Sign In</h2>
-                                    <div class="mb-2">
-                                        <label for="emailSignIn" class="form-label mb-1">Email address</label>
-                                        <input type="email" class="form-control" id="emailSignIn" onkeyup="validateSignIn()" placeholder="name@example.com">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label for="nameSignIn" class="form-label mb-1">Name</label>
-                                        <input type="text" class="form-control" id="nameSignIn" onkeyup="validateSignIn()">
-                                    </div>
-                                    <div>
-                                        <label for="passwordSignIn" class="form-label mb-1">Password</label>
-                                        <input type="password" id="passwordSignIn" class="form-control" onkeyup="validateSignIn()" aria-describedby="passwordSignInHelpBlock">
-                                    </div>
-                                    <div class="mt-3 d-flex justify-content-center align-items-center">
-                                        <button type="button" class="btn btn-outline-success disabled" id='signInBtn' onclick="signIn()">Sign In</button>
-                                    </div>
-                                    <div class="w-100 mt-1 mb-0 text-center">
-                                        <!--<p>No account?<span role="button" class="link-primary text-decoration-underline ms-1" onclick="showSignUp()">Create one!</span></p>-->
-                                        <p>No account?<span role="button" class="link-primary text-decoration-underline ms-1">Create one!</span></p>
-                                    </div>
+                                    <form method="POST" action="/api/auth/signin">    
+                                        <div class="mb-2">
+                                            <label for="emailSignIn" class="form-label mb-1">Email address</label>
+                                            <input type="email" class="form-control" id="emailSignIn" onkeyup="validateSignIn()" name="email" placeholder="name@example.com">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="nameSignIn" class="form-label mb-1">Name</label>
+                                            <input type="text" class="form-control" id="nameSignIn" name="name" onkeyup="validateSignIn()">
+                                        </div>
+                                        <div>
+                                            <label for="passwordSignIn" class="form-label mb-1">Password</label>
+                                            <input type="password" id="passwordSignIn" class="form-control" name="password" onkeyup="validateSignIn()" aria-describedby="passwordSignInHelpBlock">
+                                        </div>
+                                        <div class="mt-3 d-flex justify-content-center align-items-center">
+                                            <button type="submit" class="btn btn-outline-success disabled" id='signInBtn' >Sign In</button>
+                                        </div>
+                                        <div class="w-100 mt-1 mb-0 text-center">
+                                            <!--<p>No account?<span role="button" class="link-primary text-decoration-underline ms-1" onclick="showSignUp()">Create one!</span></p>-->
+                                            <p>No account?<span role="button" class="link-primary text-decoration-underline ms-1">Create one!</span></p>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 h-25 h-md-100 p-0 m-0 position-absolute" id="imgLogIn">

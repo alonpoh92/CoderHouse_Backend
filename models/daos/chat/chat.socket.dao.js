@@ -14,6 +14,7 @@ class ChatSocketDao extends SocketContainer{
             Socket.emit('messages-list', allMessages);
                 
             Socket.on('add-message', async (data) => {
+                console.log(data);
                 const { email, message } = data;
                 const d = new Date;
                 const dformat = [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')+' '+[d.getHours(), d.getMinutes(), d.getSeconds()].join(':');

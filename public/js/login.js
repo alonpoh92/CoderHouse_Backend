@@ -142,15 +142,17 @@ function signIn(){
     const data = {
         email: document.getElementById('emailSignIn').value.trim().toLowerCase(),
         name: document.getElementById('nameSignIn').value.trim().toLowerCase(),
-        password: document.getElementById('emailSignIn').value.trim()
+        password: document.getElementById('passwordSignIn').value.trim()
     }
-    fetch('/api/auth/login', {
+    fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data);
-    }).then((res) => {
-        clg
-    })
+        body: JSON.stringify(data)
+    }).then(function(res) {
+        return res.json();
+    }).then(function(myJson) {
+        console.log(myJson);
+    });
 }

@@ -4,11 +4,11 @@ let products = {};
 let messages = {};
 let socket;
 
-fetch('/table_layout.hbs')
+fetch('/views/partials/table.hbs')
     .then(response => response.text())
     .then(data => {
         template = data;
-        fetch('/chat_layout.hbs')
+        fetch('/views/partials/chat.hbs')
             .then(response => response.text())
             .then(data => {
                 templateChat = data;
@@ -82,7 +82,7 @@ function initSocket(){
         event.preventDefault();
         if($('#email').val() != "" && $('#message').val() != ""){
             const newMessage = {email: $('#email').val(), message: $('#message').val()};
-            socket.emit('add-message', {email: $('#email').val(), message: $('#message').val()});
+            socket.emit('add-message', newMessage);
             $('#message').val('');
         }
     });

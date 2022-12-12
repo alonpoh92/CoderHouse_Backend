@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.get('/', removeSlash, isLogged, (req, res) => {
-    res.render('index', {layout: false});
+    res.render('index', {layout: false, user: req.session});
 })
 
 module.exports = router;
