@@ -1,19 +1,19 @@
-const signUp = document.getElementById('signUp');
+const signUpElement = document.getElementById('signUp');
 const imgLogIn = document.getElementById('imgLogIn');
 const signUpBtn = document.getElementById('signUpBtn');
 const signInBtn = document.getElementById('signInBtn');
 
 function showSignUp(){
     imgLogIn.classList.remove("signin");
-    signUp.classList.remove("h-0");
-    signUp.classList.add("h-75");
+    signUpElement.classList.remove("h-0");
+    signUpElement.classList.add("h-75");
     imgLogIn.classList.add("signup");
 }
 
 function showSignIn(){
     imgLogIn.classList.remove("signup");
-    signUp.classList.remove("h-75");
-    signUp.classList.add("h-0");
+    signUpElement.classList.remove("h-75");
+    signUpElement.classList.add("h-0");
     imgLogIn.classList.add("signin");
 }
 
@@ -126,4 +126,21 @@ function validateSignIn(){
     }else{
         signInBtn.classList.add('disabled');
     }
+}
+
+function signUp(){
+    const data = {
+        email: document.getElementById('emailSignUp').value.trim().toLowerCase(),
+        name: document.getElementById('name').value.trim().toLowerCase(),
+        password: document.getElementById('password1SignUp').value.trim()
+    }
+    console.log(data);
+}
+
+function signIn(){
+    const data = {
+        email: document.getElementById('emailSignIn').value.trim().toLowerCase(),
+        password: document.getElementById('emailSignIn').value.trim()
+    }
+    console.log(data);
 }
