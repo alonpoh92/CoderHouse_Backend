@@ -42,8 +42,33 @@ function validPassword(id, idMsg){
     }
 }
 
+function validLong(id, long={}, idMsg){
+    let validMin = true;
+    let validMax = true;
+    const element = document.getElementById(id);
+    const elementMsg = document.getElementById(idMsg);
+    if(long.min){
+        if(password.value.trim().length < long.min){
+            validMin = false;
+        }
+    }
+    if(long.max){
+        if(password.value.trim().length > long.max){
+            validMax = false;
+        }
+    }
+    const valid = validMin && validMax;
+    if(valid){
+        elementMsg.classList.add('d-none');
+        return true;
+    }else{
+        elementMsg.classList.remove('d-none');
+        return false;
+    }
+}
+
 function validateSignUp(){
-    if(checkEmail('emailSignUp', 'validEmail') && validPassword('password1SignUp', 'passwordCharacter') && validLong('password1SignUp', 'passwordLong')){
+    if(checkEmail('emailSignUp', 'validEmail') && validPassword('password1SignUp', 'passwordCharacter') && validLong('password1SignUp', {min: 8, max: 20}, 'passwordLong')){
         signUpBtn.classList.remove('disabled');
     }else{
         signUpBtn.classList.add('disabled');
