@@ -35,7 +35,7 @@ app.use(session({
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
-    res.redirect('/api/auth/get')
+    res.redirect('/api/panel')
 })
 
 const server =  httpServer.listen(PORT, () => {
