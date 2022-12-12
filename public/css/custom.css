@@ -68,7 +68,7 @@
 
 @media (min-width: 768px) {
     *{
-        font-size: 15px;
+        font-size: 14px;
     }
     .h-md-25{
         height: 25% !important;
