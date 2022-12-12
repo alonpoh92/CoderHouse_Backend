@@ -120,8 +120,9 @@ function validateSignUp(){
 
 function validateSignIn(){
     const validEmail = checkEmail('emailSignIn');
-    const validPasswordLong = validateLong('passwordSignIn', {min: 1})
-    if(validEmail && validPasswordLong){
+    const validName = validateLong('nameSignIn', {min: 1});
+    const validPasswordLong = validateLong('passwordSignIn', {min: 1});
+    if(validEmail && validPasswordLong && validName){
         signInBtn.classList.remove('disabled');
     }else{
         signInBtn.classList.add('disabled');
@@ -140,7 +141,16 @@ function signUp(){
 function signIn(){
     const data = {
         email: document.getElementById('emailSignIn').value.trim().toLowerCase(),
+        name: document.getElementById('nameSignIn').value.trim().toLowerCase(),
         password: document.getElementById('emailSignIn').value.trim()
     }
-    console.log(data);
+    fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data);
+    }).then((res) => {
+        clg
+    })
 }

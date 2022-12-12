@@ -74,6 +74,10 @@
                                         <label for="emailSignIn" class="form-label mb-1">Email address</label>
                                         <input type="email" class="form-control" id="emailSignIn" onkeyup="validateSignIn()" placeholder="name@example.com">
                                     </div>
+                                    <div class="mb-2">
+                                        <label for="nameSignIn" class="form-label mb-1">Name</label>
+                                        <input type="text" class="form-control" id="nameSignIn" onkeyup="validateSignIn()">
+                                    </div>
                                     <div>
                                         <label for="passwordSignIn" class="form-label mb-1">Password</label>
                                         <input type="password" id="passwordSignIn" class="form-control" onkeyup="validateSignIn()" aria-describedby="passwordSignInHelpBlock">
@@ -82,7 +86,8 @@
                                         <button type="button" class="btn btn-outline-success disabled" id='signInBtn' onclick="signIn()">Sign In</button>
                                     </div>
                                     <div class="w-100 mt-1 mb-0 text-center">
-                                        <p>No account?<span role="button" class="link-primary text-decoration-underline ms-1" onclick="showSignUp()">Create one!</span></p>
+                                        <!--<p>No account?<span role="button" class="link-primary text-decoration-underline ms-1" onclick="showSignUp()">Create one!</span></p>-->
+                                        <p>No account?<span role="button" class="link-primary text-decoration-underline ms-1">Create one!</span></p>
                                     </div>
                                 </div>
                             </div>
