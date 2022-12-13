@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const { engine } = require('express-handlebars');
 const path = require('path');
 
@@ -8,6 +9,7 @@ const { ChatController: chat } = require('./controllers/chat.controller')
 const { ProductController: product } = require('./controllers/product.controller')
 
 const envConfig = require('./config');
+const dbConfig = require('./DB/db.config');
 const apiRoutes = require('./routes/app.routes');
 
 const PORT = envConfig.SERVER_PORT || 8080;
@@ -27,11 +29,21 @@ app.set('view engine', 'hbs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(session({
+
+const sessionMiddleware = session({
     secret: 'CoderHouse-Backend',
     resave: false,
-    saveUninitialized: false
-}));
+    saveUninitialized: false,
+    rolling: true,
+    store: MongoStore.create({
+        mongoUrl: dbConfig.mongodb.uri
+    }),
+    cookie: {
+        maxAge: 60000,
+    }
+})
+
+app.use(sessionMiddleware);
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {

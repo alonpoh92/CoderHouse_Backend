@@ -19,9 +19,14 @@ router.post('/signin', (req, res, next) => {
 
 router.post('/signup', (req, res) => {
     const result = {data: null, error: null};
-    req.session.users = [1,2,3];
-    console.log(req.session);
     res.status(200).send(result);
+});
+
+router.post('/logout', (req, res) => {
+    const user = req.session;
+    req.session.destroy(function(err) {
+        res.render('logout', {layout: false, user, timeout: 2000});
+    })
 });
 
 module.exports = router;

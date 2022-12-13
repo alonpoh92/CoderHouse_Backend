@@ -8,7 +8,9 @@ class ChatSocketDao extends SocketContainer{
     }
 
     start(){
+                
         this.io.on('connection', async (Socket) => {
+
             console.log(`Connected chat ${Socket.id}`);
             const allMessages = await this.messages.getAll();
             Socket.emit('messages-list', allMessages);

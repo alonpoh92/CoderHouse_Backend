@@ -73,6 +73,10 @@ function initSocket(){
         HbsCompile(templateChat, messages, 'chat-messages');
     });
 
+    socket.on('redirect', (destination) => {
+        window.location.href = destination;
+    });
+
     $('#add').click((event) => {
         event.preventDefault();
         socket.emit('add-product', {title: $('#title').val(), price: $('#price').val(), thumbnail: $('#thumbnail').val()});

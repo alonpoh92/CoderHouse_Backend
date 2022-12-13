@@ -8,7 +8,11 @@ class ProductSocketDao extends SocketContainer{
     }
 
     async start(){
+
+
         this.io.on('connection', async (Socket) => {
+
+
             console.log(`Connected products ${Socket.id}`);
             const data = await this.products.getAll();  
             Socket.emit('products-list', {data});
