@@ -14,14 +14,12 @@ class ChatSocketDao extends SocketContainer{
             Socket.emit('messages-list', allMessages);
                 
             Socket.on('add-message', async (data) => {
-                console.log(data);
                 const { email, message } = data;
                 const d = new Date;
                 const dformat = [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')+' '+[d.getHours(), d.getMinutes(), d.getSeconds()].join(':');
                 if(email && message){
                     const newMessage = { email, message, date: dformat };
                     const data = await this.messages.save(newMessage);
-                    console.log("aqui", data);
                     if(!data.error){
                         Socket.emit('message-success', {data: newMessage, error: null});
                         Socket.broadcast.emit('new-message', {data: newMessage, error: null})

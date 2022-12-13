@@ -26,7 +26,7 @@ function initSocket(){
     });
 
     socket.on('messages-list', (data) => {
-        messages = data;
+        messages.data = data;
         HbsCompile(templateChat, messages, 'chat-messages');
     });
 
