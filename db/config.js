@@ -1,18 +1,8 @@
+const env = require('../env.config');
+
 module.exports = {
-    mariaDB: {
-        client: 'mysql',
-        connection: {
-            host : '127.0.0.1', 
-            port : 3306, 
-            user : 'root', 
-            database : 'mariadb'
-        }
-    },
-    sqlite: {
-        client: 'sqlite3',
-        connection:{
-            filename: "./db/SQLite3"
-        },
-        useNullAsDefault: true
-    }
+  mongodb: {
+    connectTo: (database) => `mongodb+srv://alonpoh92:${env.DB_PASSWORD}@coderhousebackend.mcdak1d.mongodb.net/${database}?retryWrites=true&w=majority`,
+  }
+  // Change here for your mongo atlas account's URI
 }

@@ -15,7 +15,8 @@
             <div class="col-12 bg-secondary p-4" style="min-height: 100vh;">
                 <div class="row h-100">
                     <div class="col-8 mx-auto my-auto">
-                        <div id="product-form">
+                        {{> userInfo data=data error=error}}
+                        <div id="product-form" class="mt-4">
                             <div class="row">
                                 <div class="col-12 p-5 border border-light border-3 rounded">
                                     <h2 class="mb-3 fw-bold">ADD NEW PRODUCTS</h2>
@@ -38,7 +39,7 @@
                             </div>
                         </div>
                         <div id="products" class="mt-4">
-                            
+                            {{> table data=data error=error}}
                         </div> 
                         <div id="chat" class="mt-4">
                             <div class="row">
@@ -47,10 +48,10 @@
                                     <form id="chat-form">
                                         <div class="mb-2">
                                             <label for="email" class="form-label mb-0 text-white">Email</label>
-                                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                                            <input type="email" class="form-control" value="{{user}}" id="email" aria-describedby="emailHelp" disabled>
                                         </div>
                                         <div id="chat-messages" class="mb-2 p-2 border border-light border-3 rounded overflow-auto bg-light" style="height: 150px;">
-
+                                            {{> chat data=data error=error}}
                                         </div>
                                         <div class="mb-2">
                                             <div class="form-row">
@@ -76,6 +77,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <script src="./js/socket.js"></script>
+    <script src="../js/socket.js"></script>
 </body>
 </html>

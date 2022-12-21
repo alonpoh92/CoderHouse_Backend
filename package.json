@@ -1,20 +1,26 @@
 {
-  "name": "clase-6",
+  "name": "Desafios",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "init-tables": "node init_tables.js"
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1",
-    "knex": "^2.3.0",
-    "mysql": "^2.18.1",
-    "socket.io": "^4.5.2",
-    "sqlite3": "^5.1.2"
+    "bcrypt": "^5.1.0",
+    "connect-mongo": "^4.6.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.2",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.5.4"
   }
 }

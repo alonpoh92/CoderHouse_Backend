@@ -1,14 +1,14 @@
 let template = '';
 let templateChat = '';
-let products = {};
+let products = {data: []};
 let messages = {};
 let socket;
 
-fetch('/table_layout.hbs')
+fetch('/views/partials/table.hbs')
     .then(response => response.text())
     .then(data => {
         template = data;
-        fetch('/chat_layout.hbs')
+        fetch('/views/partials/chat.hbs')
             .then(response => response.text())
             .then(data => {
                 templateChat = data;
@@ -26,11 +26,14 @@ function initSocket(){
     });
 
     socket.on('messages-list', (data) => {
-        messages = data;
+        messages.data = data;
         HbsCompile(templateChat, messages, 'chat-messages');
     });
 
     socket.on('product-success', (data) => {
+        products.products = true;
+        products.data.push(data.data);
+        HbsCompile(template, products, 'products');
         Swal.fire({
             title: 'Product Added!!!',
             html: `<p class="mb-0"><span class="fw-bold">Id: </span>${data.data.id}</p>
@@ -44,8 +47,6 @@ function initSocket(){
                 $('#addForm').trigger("reset");
             }
         })
-        products.data.push(data.data);
-        HbsCompile(template, products, 'products');
     });
 
     socket.on('product-error', (data) => {
@@ -73,6 +74,10 @@ function initSocket(){
         HbsCompile(templateChat, messages, 'chat-messages');
     });
 
+    socket.on('redirect', (destination) => {
+        window.location.href = destination;
+    });
+
     $('#add').click((event) => {
         event.preventDefault();
         socket.emit('add-product', {title: $('#title').val(), price: $('#price').val(), thumbnail: $('#thumbnail').val()});
@@ -82,7 +87,7 @@ function initSocket(){
         event.preventDefault();
         if($('#email').val() != "" && $('#message').val() != ""){
             const newMessage = {email: $('#email').val(), message: $('#message').val()};
-            socket.emit('add-message', {email: $('#email').val(), message: $('#message').val()});
+            socket.emit('add-message', newMessage);
             $('#message').val('');
         }
     });
