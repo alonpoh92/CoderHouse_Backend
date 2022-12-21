@@ -32,4 +32,8 @@ router.get('/logout', auth, (req, res, next) => {
   });
 });
 
+router.get('/signin-error', (req, res, next) => {
+  res.render('signin-error', {layout: false});
+});
+
 module.exports = router;
