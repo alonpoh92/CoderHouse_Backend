@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const apiRoutes = require('./api/api.routes');
 const auth = require('../middlewares/auth');
+const args = require('../utils/minimist.utils');
 
 const router = express.Router();
 
@@ -23,6 +24,25 @@ router.get('/profile', auth, async (req, res) => {
   const user = req.user;
   console.log(user);
   res.render('profile', {layout: false, user: user.email});
+});
+
+router.get('/info', (req, res) => {
+  const data = {};
+  data.args = [];
+  for(key in args){
+    if(key == "_"){
+      data.args.push({key: 'others', value: args[key]});
+    }else{
+      data.args.push({key, value: args[key]});
+    }
+  }
+  data.platform = process.platform;
+  data.version = process.version;
+  data.memory = process.memoryUsage().rss;
+  data.executionPath = process.argv[0];
+  data.pid = process.pid;
+  data.folderPath = process.cwd();
+  res.render('info', {layout: false, data})
 });
 
 router.get('/logout', auth, (req, res, next) => {

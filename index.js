@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const { engine } = require('express-handlebars');
 const path = require('path');
 const passport = require('./middlewares/passport');
+const args = require('./utils/minimist.utils');
 
 
 const env = require('./env.config');
@@ -15,7 +16,7 @@ const { Server: HttpServer } = require('http');
 const { ChatController: chat } = require('./controllers/chat.controller')
 const { ProductController: product } = require('./controllers/product.controller')
 
-const PORT = env.PORT;
+const PORT = args.port;
 
 const app = express();
 const httpServer = new HttpServer(app);
