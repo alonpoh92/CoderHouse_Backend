@@ -9,10 +9,10 @@ router.use('/auth', authRoutes);
 
 router.get('/randoms', (req, res) => {
     const cant = req.query.cant || 100000000;
-    const calc = fork('../../child-process/fork/random.js');
+    const calc = fork('./child-process/fork/random.js');
     calc.send(cant);
     calc.on('message', (data) => {
-        res.json({data});
+        res.json(data);
     })
 })
 
