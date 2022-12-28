@@ -13,10 +13,7 @@ class ChatSocketDao extends SocketContainer{
     }
 
     dateFormat(data){
-        //console.log('--------------------------------------------')
-        //console.log(data);
         data.map((item, i) => {data[i].date = moment(item.date).format('DD/MM/YYYY hh:mm:ss')});
-        //console.log(data);
         return data;
     }
 

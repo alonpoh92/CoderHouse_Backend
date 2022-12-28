@@ -22,7 +22,6 @@ router.get('/', async (req, res) => {
 
 router.get('/profile', auth, async (req, res) => {
   const user = req.user;
-  console.log(user);
   res.render('profile', {layout: false, user: user.email});
 });
 
