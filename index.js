@@ -6,6 +6,8 @@ const { engine } = require('express-handlebars');
 const path = require('path');
 const passport = require('./middlewares/passport');
 const args = require('./utils/minimist.utils');
+const cluster = require('cluster');
+const os = require('os');
 
 
 const env = require('./env.config');
@@ -17,6 +19,7 @@ const { ChatController: chat } = require('./controllers/chat.controller')
 const { ProductController: product } = require('./controllers/product.controller')
 
 const PORT = args.port;
+const MODE = args.mode;
 
 const app = express();
 const httpServer = new HttpServer(app);
@@ -55,12 +58,19 @@ app.set('view engine', 'hbs');
 // Routes
 app.use(apisRoutes);
 
-const server = httpServer.listen(PORT, async () => {
-  chat.start(httpServer);
-  product.start(httpServer);
-  MongoContainer.connect()
-  .then(() => {
-    console.log('Connected to DB!');
-    console.log('Server is up and running on port: ', +PORT);
+
+if(cluster.isPrimary && MODE === "CLUSTER"){
+  for(let i=0; i<os.cpus().length; i++){
+    cluster.fork();
+  }
+}else{
+  const server = httpServer.listen(PORT, async () => {
+    chat.start(httpServer);
+    product.start(httpServer);
+    MongoContainer.connect()
+    .then(() => {
+      console.log('Connected to DB!');
+      console.log(`Server is up and running on port: ${PORT} pid: ${process.pid}`);
+    });
   });
-});
+}

@@ -3,6 +3,7 @@ const express = require('express');
 const apiRoutes = require('./api/api.routes');
 const auth = require('../middlewares/auth');
 const args = require('../utils/minimist.utils');
+const os = require('os');
 
 const router = express.Router();
 
@@ -41,6 +42,7 @@ router.get('/info', (req, res) => {
   data.executionPath = process.argv[0];
   data.pid = process.pid;
   data.folderPath = process.cwd();
+  data.cpus = os.cpus().length;
   res.render('info', {layout: false, data})
 });
 
