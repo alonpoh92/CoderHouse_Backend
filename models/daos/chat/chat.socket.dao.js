@@ -1,10 +1,20 @@
+const moment = require('moment');
+
 const { SocketContainer } = require('../../containers/socket.container');
-const { FirebaseContainer } = require('../../containers/firebase.container');
+const MongoContainer = require('../../containers/Mongodb.container');
+const MessageSchema = require('../../schemas/Message.schema');
+
+const collection = 'Messages';
 
 class ChatSocketDao extends SocketContainer{
     constructor(httpServer){
         super(httpServer);
-        this.messages = new FirebaseContainer('messages');
+        this.messages = new MongoContainer(collection, MessageSchema);
+    }
+
+    dateFormat(data){
+        data.map((item, i) => {data[i].date = moment(item.date).format('DD/MM/YYYY hh:mm:ss')});
+        return data;
     }
 
     start(){
@@ -12,18 +22,16 @@ class ChatSocketDao extends SocketContainer{
         this.io.on('connection', async (Socket) => {
 
             console.log(`Connected chat ${Socket.id}`);
-            const allMessages = await this.messages.getAll();
+            const allMessages = this.dateFormat(await this.messages.getAll()); 
             Socket.emit('messages-list', allMessages);
                 
             Socket.on('add-message', async (data) => {
                 const { email, message } = data;
-                const d = new Date;
-                const dformat = [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')+' '+[d.getHours(), d.getMinutes(), d.getSeconds()].join(':');
                 if(email && message){
-                    const newMessage = { email, message, date: dformat };
+                    const newMessage = { email, message, date: moment() };
                     const data = await this.messages.save(newMessage);
                     if(!data.error){
-                        Socket.emit('message-success', {data: newMessage, error: null});
+                        Socket.emit('message-success', {data: this.dateFormat([newMessage])[0], error: null});
                         Socket.broadcast.emit('new-message', {data: newMessage, error: null})
                     }else{
                         Socket.emit('message-error', data);

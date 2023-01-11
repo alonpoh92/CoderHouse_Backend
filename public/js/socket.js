@@ -1,6 +1,6 @@
 let template = '';
 let templateChat = '';
-let products = {};
+let products = {data: []};
 let messages = {};
 let socket;
 
@@ -31,6 +31,9 @@ function initSocket(){
     });
 
     socket.on('product-success', (data) => {
+        products.products = true;
+        products.data.push(data.data);
+        HbsCompile(template, products, 'products');
         Swal.fire({
             title: 'Product Added!!!',
             html: `<p class="mb-0"><span class="fw-bold">Id: </span>${data.data.id}</p>
@@ -44,8 +47,6 @@ function initSocket(){
                 $('#addForm').trigger("reset");
             }
         })
-        products.data.push(data.data);
-        HbsCompile(template, products, 'products');
     });
 
     socket.on('product-error', (data) => {

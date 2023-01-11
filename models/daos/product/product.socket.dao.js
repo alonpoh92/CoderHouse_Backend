@@ -1,10 +1,13 @@
 const { SocketContainer } = require('../../containers/socket.container');
-const { FirebaseContainer } = require('../../containers/firebase.container');
+const MongoContainer = require('../../containers/Mongodb.container');
+const ProductSchema = require('../../schemas/Product.schema');
+
+const collection = 'Products';
 
 class ProductSocketDao extends SocketContainer{
     constructor(httpServer){
         super(httpServer);
-        this.products = new FirebaseContainer('products');
+        this.products = new MongoContainer(collection, ProductSchema);
     }
 
     async start(){
@@ -22,6 +25,7 @@ class ProductSocketDao extends SocketContainer{
                 if(title && Number(price) && thumbnail){
                     const newProduct = { title, price: Number(price), thumbnail };
                     const data = await this.products.save(newProduct);
+                    newProduct.id = data._id;
                     if(!data.error){
                         Socket.emit('product-success', {data: newProduct, error: null});
                         Socket.broadcast.emit('new-product', {data: newProduct, error: null})

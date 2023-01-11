@@ -18,7 +18,8 @@ function showSignIn(){
 }
 
 function checkEmail(id, idMsg){
-    const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]/;
+    const validRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    //const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]/;
     const email = document.getElementById(id);
     const emailMsg = document.getElementById(idMsg);
     if(email.value.trim().match(validRegex)){
@@ -106,10 +107,10 @@ function validateSignUp(){
     const validEmail = checkEmail('emailSignUp', 'validEmail');
     const validPassword = checkPassword('password1SignUp', 'passwordCharacter');
     const validPasswordLong = validateLong('password1SignUp', {min: 8, max: 20}, 'passwordLong');
-    const validName = validateLong('name', {min: 1}, 'validName');
+    //const validName = validateLong('name', {min: 1}, 'validName');
     const validSamePass = validateSame(['password1SignUp', 'password2SignUp'], 'passwordSame')
 
-    if(validEmail && validPassword && validPasswordLong && validName && validSamePass){
+    if(validEmail && validPassword && validPasswordLong && validSamePass){
         signUpBtn.classList.remove('disabled');
         document.getElementById('validPassword').classList.add('d-none');
     }else{
@@ -120,23 +121,16 @@ function validateSignUp(){
 
 function validateSignIn(){
     const validEmail = checkEmail('emailSignIn');
-    const validName = validateLong('nameSignIn', {min: 1});
+    //const validName = validateLong('nameSignIn', {min: 1});
     const validPasswordLong = validateLong('passwordSignIn', {min: 1});
-    if(validEmail && validPasswordLong && validName){
+    if(validEmail && validPasswordLong){
         signInBtn.classList.remove('disabled');
     }else{
         signInBtn.classList.add('disabled');
     }
 }
 
-function signUp(){
-    const data = {
-        email: document.getElementById('emailSignUp').value.trim().toLowerCase(),
-        name: document.getElementById('name').value.trim().toLowerCase(),
-        password: document.getElementById('password1SignUp').value.trim()
-    }
-    console.log(data);
-}
+
 
 function signIn(){
     const data = {
