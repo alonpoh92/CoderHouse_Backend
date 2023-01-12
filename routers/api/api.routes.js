@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoutes = require('./auth/auth.routes');
 const { fork } = require('child_process');
+const args = require('../../utils/minimist.utils');
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get('/randoms', (req, res) => {
     const calc = fork('./child-process/fork/random.js');
     calc.send(cant);
     calc.on('message', (data) => {
-        res.json(data);
+        res.json({port: args['p'], data});
     })
 })
 
