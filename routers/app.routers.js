@@ -4,6 +4,7 @@ const apiRoutes = require('./api/api.routes');
 const auth = require('../middlewares/auth');
 const args = require('../utils/minimist.utils');
 const os = require('os');
+const compression = require('compression');
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.get('/profile', auth, async (req, res) => {
   res.render('profile', {layout: false, user: user.email});
 });
 
-router.get('/info', (req, res) => {
+router.get('/info', compression(), (req, res) => {
   const data = {};
   data.args = [];
   for(key in args){
