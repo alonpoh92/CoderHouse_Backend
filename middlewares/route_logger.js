@@ -5,7 +5,7 @@ const logger = (validRoute = true) => {
         if(validRoute){
             pinoLogger.info(`${req.url} -> ${req.method}`);
         }else{
-            pinoLogger.warn(`${req.url} -> ${req.method}`);
+            pinoLogger.warn(`${req.baseUrl} -> ${req.method}`);
         }
         next();
     };

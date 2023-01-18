@@ -8,7 +8,7 @@ const passport = require('./middlewares/passport');
 const args = require('./utils/minimist.utils');
 const cluster = require('cluster');
 const os = require('os');
-const logger = require('./middlewares/logger');
+const routeLogger = require('./middlewares/route_logger');
 
 
 const env = require('./env.config');
@@ -57,9 +57,9 @@ app.set('views', './public/views');
 app.set('view engine', 'hbs');
 
 // Routes
-app.use(logger(true), apisRoutes);
-app.get('*', logger(false), (req, res) => {
-  res.send(`Route ${req.url} not working`)
+app.use('/', routeLogger(true), apisRoutes);
+app.use('*', routeLogger(false), (req, res) => {
+  res.send(`Route ${req.baseUrl} not working`)
 });
 
 if(cluster.isPrimary && MODE === "CLUSTER"){
