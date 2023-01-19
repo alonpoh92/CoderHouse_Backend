@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "nodemon": "nodemon ."
+    "start": "0x .",
+    "nodemon": "nodemon .",
+    "test": "node ./autocannon/benchmark.js"
   },
   "keywords": [],
   "author": "",
