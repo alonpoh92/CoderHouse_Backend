@@ -1,3 +1,5 @@
+const logger = require('../utils/logger.utils');
+
 const successResponse = (data) => {
   return {
     success: true,
@@ -18,6 +20,7 @@ class HttpError {
     this.statusCode = status;
     this.message = message;
     this.details = details;
+    logger.error(message);
   }
 }
 
