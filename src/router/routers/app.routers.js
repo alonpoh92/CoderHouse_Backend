@@ -44,7 +44,6 @@ router.get('/info', compression(), (req, res) => {
   data.pid = process.pid;
   data.folderPath = process.cwd();
   data.cpus = os.cpus().length;
-  console.log(data);
   res.render('info', {layout: false, data})
 });
 
