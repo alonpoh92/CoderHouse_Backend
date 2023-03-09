@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     return res.redirect('/profile');
   }
   else {
-    return res.sendFile(path.resolve(__dirname, '../src/router/public/login.html'));
+    return res.sendFile(path.resolve(__dirname, '../public/login.html'));
   }
 });
 
