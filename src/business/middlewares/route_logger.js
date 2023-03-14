@@ -1,4 +1,4 @@
-const pinoLogger = require('../utils/logger.utils');
+const pinoLogger = require('../../../utils/logger.utils');
 
 const logger = (validRoute = true) => {
     return (req, res, next) => {

@@ -1,6 +1,6 @@
 const express = require('express');
 const authRoutes = require('./auth/auth.routes');
-const args = require('../../../business/utils/minimist.utils');
+const args = require('../../../../utils/minimist.utils');
 const randomController = require('../../../controllers/randoms.controller');
 
 const router = express.Router();

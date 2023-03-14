@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const apiRoutes = require('./api/api.routes');
 const auth = require('../../business/middlewares/auth');
-const args = require('../../business/utils/minimist.utils');
+const args = require('../../../utils/minimist.utils');
 const os = require('os');
 const compression = require('compression');
 
@@ -56,6 +56,10 @@ router.get('/logout', auth, (req, res, next) => {
 
 router.get('/signin-error', (req, res, next) => {
   res.render('signin-error', {layout: false});
+});
+
+router.get('/signup-error', (req, res, next) => {
+  res.render('signup-error', {layout: false});
 });
 
 module.exports = router;
